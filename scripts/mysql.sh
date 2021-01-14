@@ -1,0 +1,1 @@
+docker exec -it go-crud_mysql_1 mysql -uroot -p
