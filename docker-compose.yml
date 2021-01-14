@@ -9,14 +9,3 @@ services:
       MYSQL_DATABASE: db
     ports:
      - 3306:3306
-    # volumes:
-    #   - mysql_data:/var/lib/mysql/data
-
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
-
-# volumes:
-#   mysql_data:
