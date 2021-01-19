@@ -42,15 +42,27 @@ func (cli *MySqlClient) Disconnect() {
 func (cli *MySqlClient) UseTestDbAndTable() {
 	db := cli.Database
 
-	_, err := db.Exec("USE db")
+	sql := "CREATE DATABASE IF NOT EXISTS db;"
+	stmt, err := db.Prepare(sql)
+	if err != nil {
+		log.Println(err.Error())
+	}
+	_, err = stmt.Exec()
+	if err != nil {
+		log.Println(err.Error())
+	} else {
+		log.Println("Database db created successfully..")
+	}
+
+	_, err = db.Exec("USE db")
 	if err != nil {
 		log.Println(err.Error())
 	} else {
 		log.Println("DB selected successfully..")
 	}
 
-	sql := "DROP TABLE IF EXISTS `tasks`;"
-	stmt, err := db.Prepare(sql)
+	sql = "DROP TABLE IF EXISTS `tasks`;"
+	stmt, err = db.Prepare(sql)
 	if err != nil {
 		log.Println(err.Error())
 	}
